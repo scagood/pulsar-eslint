@@ -8,17 +8,19 @@ if (process.env.PATH === '/usr/bin:/bin:/usr/sbin:/sbin') {
   // window that has failed to inherit its PATH variable from the window that
   // spawned it. This happened sporadically in Atom but is happening
   // consistently in Pulsar. This is a quick fix.
-  let shellOutput = childProcess.execFileSync(
+  const shellOutput = childProcess.execFileSync(
     process.env.SHELL,
-    ['-i', '-c', 'echo $PATH']
-  ).toString().trim().split('\n');
+    [ '-i', '-c', 'echo $PATH' ],
+  ).toString()
+    .trim()
+    .split('\n');
   process.env.PATH = shellOutput[shellOutput.length - 1];
 }
 
 function setDefaultSettings(namespace, settings) {
   for (const name in settings) {
     const setting = settings[name];
-    if (setting.type === "object") {
+    if (setting.type === 'object') {
       setDefaultSettings(`${namespace}.${name}`, setting.properties);
     } else {
       atom.config.set(`${namespace}.${name}`, setting.default);
@@ -27,7 +29,7 @@ function setDefaultSettings(namespace, settings) {
 }
 
 module.exports = createRunner({
-  testPackages: ['linter', 'linter-ui-default'],
+  testPackages: [ 'linter', 'linter-ui-default' ],
   timeReporter: true,
   specHelper: {
     atom: true,
@@ -42,12 +44,13 @@ module.exports = createRunner({
     mockLocalStorage: true,
     profile: true,
     set: true,
-    unspy: true
-  }
+    unspy: true,
+  },
 },
 () => {
   beforeEach(() => {
-    const { configSchema, name } = require("../package.json");
+    // eslint-disable-next-line n/global-require
+    const { configSchema, name } = require('../package.json');
     setDefaultSettings(name, configSchema);
   });
 });

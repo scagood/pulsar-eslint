@@ -1,11 +1,11 @@
-# linter-eslint-node package
+# pulsar-eslint package
 
 A “bring-your-own-Node” linter for newer versions of ESLint: v8 and above.
 
 ## Installation
 
 ```ShellSession
-ppm install AtomLinter/linter-eslint-node
+ppm install AtomLinter/pulsar-eslint
 ```
 
 The `linter` package will be installed for you if it’s not already present in your Atom installation. If you’re using an alternative `linter-*` consumer, the `linter` package can be disabled.
@@ -31,7 +31,7 @@ When `linter-eslint` is not installed and this package detects an ESLint version
 
 ## How do I “bring my own Node”?
 
-To run your version of Node, `linter-eslint-node` needs to know _where_ your version of Node is, and that question sometimes has a complex answer.
+To run your version of Node, `pulsar-eslint` needs to know _where_ your version of Node is, and that question sometimes has a complex answer.
 
 The **Path to Node binary** option in this package’s settings will allow you to set the path to your node binary. It defaults to the bare value `node`, which will work if `node` is in your `PATH`.
 
@@ -65,13 +65,13 @@ If you’re already using a package like [project-config][] or [atomic-managemen
 
 ```json
 {
-  "linter-eslint-node": {
+  "pulsar-eslint": {
     "nodeBin": "/Users/foo/.nvm/versions/node/v17.4.0/bin/node"
   }
 }
 ```
 
-Otherwise, you can specify your Node binary path (or any other project-specific `linter-eslint-node` settings) with a file called `.linter-eslint` that lives in your project root and contains only configuration settings for this package:
+Otherwise, you can specify your Node binary path (or any other project-specific `pulsar-eslint` settings) with a file called `.linter-eslint` that lives in your project root and contains only configuration settings for this package:
 
 ```json
 {
@@ -89,11 +89,11 @@ Keep in mind you’ll have to update this setting whenever you update the versio
 
 ## Which ESLint version will this package use?
 
-`linter-eslint-node` will look for a version of ESLint local to your project, as long as it’s at least v8.0.0. Ideally, this would be installed into a `node_modules` folder in the project root, but it’ll find anything in `module.paths`.
+`pulsar-eslint` will look for a version of ESLint local to your project, as long as it’s at least v8.0.0. Ideally, this would be installed into a `node_modules` folder in the project root, but it’ll find anything in `module.paths`.
 
-If you can run `node -e "require('eslint')"` from your project root and not get an error, then `linter-eslint-node` should find your copy of ESLint just fine.
+If you can run `node -e "require('eslint')"` from your project root and not get an error, then `pulsar-eslint` should find your copy of ESLint just fine.
 
-If it doesn’t find an ESLint in your project, `linter-eslint-node` will fall back to the version it ships with, which is typically the most recent major release.
+If it doesn’t find an ESLint in your project, `pulsar-eslint` will fall back to the version it ships with, which is typically the most recent major release.
 
 The command **Linter Eslint Node: Debug**, when run from a file inside your project, will report which version of ESLint this package would use to lint that file, and whether it’s yours or the package’s built-in version.
 
@@ -116,7 +116,7 @@ You can also create the `.eslintrc` file manually. It’s a good idea to consult
 
 ### .eslintignore
 
-An `.eslintignore` file can be used to tell ESLint that certain files should not be linted. The `eslint` command-line tool will only look for an `.eslintignore` in the directory you run it from, so this file should almost always be placed in your project root. But `linter-eslint-node`, when linting a single file, will respect the first `.eslintignore` it finds, starting from the file’s path and moving upward until it reaches the project root.
+An `.eslintignore` file can be used to tell ESLint that certain files should not be linted. The `eslint` command-line tool will only look for an `.eslintignore` in the directory you run it from, so this file should almost always be placed in your project root. But `pulsar-eslint`, when linting a single file, will respect the first `.eslintignore` it finds, starting from the file’s path and moving upward until it reaches the project root.
 
 ### Plugins
 
