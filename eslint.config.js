@@ -28,6 +28,12 @@ module.exports = (async () => {
 
   // env = { browser: true }
   for (const config of configs.filter(ByPlugin('n'))) {
+    if (config.settings == null) {
+      config.settings = {};
+    }
+    if (config.settings.node == null) {
+      config.settings.node = {};
+    }
     config.settings.node.version = '14.21.3';
   }
 

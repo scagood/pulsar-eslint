@@ -170,11 +170,12 @@ describe('The eslint provider for Linter', () => {
     expect(messages.length).toBe(0);
   });
 
-  it('finds no cwd problems with a valid file (and proper dynamic ecmaVersion)', async () => {
+  fit('finds no cwd problems with a valid file (and proper dynamic ecmaVersion)', async () => {
     const cwd = process.cwd();
 
     const editor = await atom.workspace.open(paths.dynamicCwd);
     const messages = await lint(editor);
+    console.error('asdasdasdas', messages);
 
     expect(cwd).toEqual(process.cwd());
     process.chdir(cwd);

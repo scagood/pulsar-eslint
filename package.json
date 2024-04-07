@@ -1,6 +1,6 @@
 {
   "name": "pulsar-eslint",
-  "main": "./lib/main",
+  "main": "./lib/main.js",
   "version": "0.0.1",
   "description": "Lint JavaScript on the fly, using ESLint (v8 or greater)",
   "keywords": [
@@ -36,6 +36,7 @@
     "@types/throttle-debounce": "5.0.0",
     "@types/which": "3.0.0",
     "atom-jasmine3-test-runner": "5.2.11",
+    "eslint-plugin-import": "^2.29.1",
     "patch-package": "8.0.0",
     "rimraf": "3.0.2"
   },
@@ -43,8 +44,8 @@
   "scripts": {
     "lint": "eslint . --fix",
     "postinstall": "patch-package",
-    "test.lint": "eslint .",
-    "test": "atom --test spec"
+    "test": "atom --test spec",
+    "test.lint": "eslint ."
   },
   "package-deps": [
     {
@@ -236,6 +237,6 @@
     }
   },
   "volta": {
-    "node": "14.21.3"
+    "node": "20.12.1"
   }
 }
