@@ -15,64 +15,22 @@ jobs:
           - ubuntu-latest
           - macos-latest
           - windows-latest
+        # targets:
+        #   - { eslint: "8", node: "12.x" }
+        #   - { eslint: "8", node: "14.x" }
+        #   - { eslint: "8", node: "16.x" }
+        #   - { eslint: "9", node: "18.x" }
+        #   - { eslint: "9", node: "20.x" }
     steps:
       - uses: actions/checkout@v3
       - uses: pulsar-edit/action-pulsar-dependency@v3.3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 'lts/*'
       - uses: volta-cli/action@v4
-      - name: Install multiple Node versions
-        if: runner.os != 'Windows'
-        run: |
-          volta install node@latest
-          echo "NODE_LATEST=$(volta which node)" >> $GITHUB_ENV
-          echo "NODE_LATEST_VERSION=$(node --version)" >> $GITHUB_ENV
-          volta install node@16
-          echo "NODE_DEFAULT=$(volta which node)" >> $GITHUB_ENV
-          echo "NODE_DEFAULT_VERSION=$(node --version)" >> $GITHUB_ENV
-      - name: Install multiple Node versions (Windows)
-        if: runner.os == 'Windows'
-        run: |
-          volta install node@latest
-          echo "NODE_LATEST=$(volta which node)" >> $env:GITHUB_ENV
-          echo "NODE_LATEST_VERSION=$(node --version)" >> $env:GITHUB_ENV
-          volta install node@16
-          echo "NODE_DEFAULT=$(volta which node)" >> $env:GITHUB_ENV
-          echo "NODE_DEFAULT_VERSION=$(node --version)" >> $env:GITHUB_ENV
-      - name: Setup dummy ESLint projects
-        run: |
-          mkdir ~/with-eslint-6 && cd ~/with-eslint-6
-          npm init --yes
-          npm install eslint@6
-          cd ..
-
-          mkdir ~/with-eslint-7 && cd ~/with-eslint-7
-          npm init --yes
-          npm install eslint@7
-          cd ..
-
-          mkdir ~/with-eslint-latest && cd ~/with-eslint-latest
-          npm init --yes
-          npm install eslint@latest
-          cd ..
-      - name: Install dependencies (Windows)
-        if: runner.os == 'Windows'
-        run: |
-          ppm install
-          npm install
-          npx atom-package-deps .
-      - name: Install dependencies
-        if: runner.os != 'Windows'
-        run: |
-          pulsar --package install
-          npx atom-package-deps .
-      - name: List dependencies
-        run: |
-          pulsar --package list --enabled --packages
-
-      - name: Run tests 👩🏾‍💻
-        uses: coactions/setup-xvfb@v1
+        with:
+          node-version: ${{ matrix.targets.node }}
+      - run: pulsar --package install
+      - run: npx atom-package-deps .
+      - run: pulsar --package list --enabled --packages
+      - uses: coactions/setup-xvfb@v1
         with:
           run: pulsar --test spec
 
@@ -80,14 +38,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Lint ✨
-        run: npm run test.lint
+      - uses: volta-cli/action@v4
+      - run: npm install
+      - run: npm run test.lint
 
   Release:
     needs: [Test, Lint]

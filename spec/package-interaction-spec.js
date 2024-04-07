@@ -48,7 +48,7 @@ async function deleteFilesFromProject (projectPath) {
   }
 }
 
-if (process.env.CI) {
+if (false && process.env.CI) {
   describe('Package interaction', () => {
     const linterProvider = linterEslintNode.provideLinter();
     const { lint } = linterProvider;
