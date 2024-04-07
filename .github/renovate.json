@@ -1,6 +1,43 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "local>pulsar-linter/.github:renovate-config"
+    ":disableRateLimiting",
+    ":enableVulnerabilityAlerts",
+    ":ignoreModulesAndTests",
+    ":ignoreUnstable",
+    ":separateMultipleMajorReleases",
+    ":pinDependencies",
+    "group:monorepos",
+    "group:recommended",
+    "replacements:all",
+    "workarounds:all"
+  ],
+  "configMigration": true,
+  "rangeStrategy": "update-lockfile",
+  "lockFileMaintenance": {
+    "enabled": true,
+    "semanticCommitType": "deps",
+    "semanticCommitScope": "lock"
+  },
+  "prBodyTemplate": "{{{table}}}{{{warnings}}}{{{notes}}}{{{changelogs}}}{{{controls}}}{{{footer}}}",
+  "prBodyColumns": [ "Package", "Update", "Type", "Change" ],
+  "packageRules": [
+    {
+      "matchPackagePatterns": [ "*" ],
+      "semanticCommits": "enabled",
+      "semanticCommitType": "deps"
+    },
+    {
+      "matchDepTypes": [ "dependencies" ],
+      "semanticCommitScope": "pkg"
+    },
+    {
+      "matchDepTypes": [ "devDependencies" ],
+      "semanticCommitScope": "dev"
+    },
+    {
+      "matchDepTypes": [ "peerDependencies" ],
+      "semanticCommitScope": "peer"
+    }
   ]
 }
