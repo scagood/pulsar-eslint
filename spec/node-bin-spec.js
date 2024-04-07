@@ -60,13 +60,13 @@ if (process.env.CI) {
     const { lint } = linterProvider;
 
     beforeEach(async () => {
-      atom.config.set('linter-eslint-node.nodeBin', process.env.NODE_DEFAULT);
+      atom.config.set('pulsar-eslint.nodeBin', process.env.NODE_DEFAULT);
 
       atom.packages.triggerDeferredActivationHooks();
       atom.packages.triggerActivationHook('core:loaded-shell-environment');
 
       await atom.packages.activatePackage('language-javascript');
-      await atom.packages.activatePackage('linter-eslint-node');
+      await atom.packages.activatePackage('pulsar-eslint');
     });
 
     describe('with default nodeBin', () => {
@@ -152,7 +152,7 @@ if (process.env.CI) {
         let results = await lint(editor);
         expect(results.length).toBe(1);
 
-        atom.config.set('linter-eslint-node.nodeBin', process.env.NODE_LATEST);
+        atom.config.set('pulsar-eslint.nodeBin', process.env.NODE_LATEST);
         wait(1000);
 
         debug = await debugJob(editor);

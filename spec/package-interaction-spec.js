@@ -54,7 +54,7 @@ if (process.env.CI) {
     const { lint } = linterProvider;
 
     beforeEach(async () => {
-      atom.config.set('linter-eslint-node.nodeBin', process.env.NODE_DEFAULT);
+      atom.config.set('pulsar-eslint.nodeBin', process.env.NODE_DEFAULT);
 
       atom.packages.triggerDeferredActivationHooks();
       atom.packages.triggerActivationHook('core:loaded-shell-environment');
@@ -64,7 +64,7 @@ if (process.env.CI) {
       );
 
       await atom.packages.activatePackage('language-javascript');
-      await atom.packages.activatePackage('linter-eslint-node');
+      await atom.packages.activatePackage('pulsar-eslint');
     });
 
     describe('With linter-eslint enabled', () => {
@@ -138,7 +138,7 @@ if (process.env.CI) {
         if (!notification) {
           fail('Did not get notification');
         } else {
-          expect(notification.getMessage()).toBe('linter-eslint-node: Incompatible ESLint');
+          expect(notification.getMessage()).toBe('pulsar-eslint: Incompatible ESLint');
         }
         await deleteFilesFromProject(paths.eslint6);
       });
@@ -158,7 +158,7 @@ if (process.env.CI) {
         if (!notification) {
           fail('Did not get notification');
         } else {
-          expect(notification.getMessage()).toBe('linter-eslint-node: Incompatible ESLint');
+          expect(notification.getMessage()).toBe('pulsar-eslint: Incompatible ESLint');
         }
 
         await deleteFilesFromProject(paths.eslint7);

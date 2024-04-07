@@ -94,7 +94,7 @@ async function makeFixes(textEditor, expectedFixCount) {
 
   // Subscriptions now active for Editor Reload and Message Notification
   // Send off a fix request.
-  await atom.commands.dispatch(atom.views.getView(textEditor), 'linter-eslint-node:fix-file');
+  await atom.commands.dispatch(atom.views.getView(textEditor), 'pulsar-eslint:fix-file');
 
   const notification = await notificationPromise;
   expect(notification.getMessage()).toBe(expectedMessage);
@@ -110,7 +110,7 @@ describe('The eslint provider for Linter', () => {
   const { lint } = linterProvider;
 
   beforeEach(async () => {
-    atom.config.set('linter-eslint-node.advanced.disableEslintIgnore', true);
+    atom.config.set('pulsar-eslint.advanced.disableEslintIgnore', true);
 
     // Activate activation hook
     atom.packages.triggerDeferredActivationHooks();
@@ -119,7 +119,7 @@ describe('The eslint provider for Linter', () => {
     // Activate the JavaScript language so Atom knows what the files are
     await atom.packages.activatePackage('language-javascript');
     // Activate the provider
-    await atom.packages.activatePackage('linter-eslint-node');
+    await atom.packages.activatePackage('pulsar-eslint');
   });
 
   describe('checks bad.js and', () => {
@@ -220,7 +220,7 @@ describe('The eslint provider for Linter', () => {
   describe('when a file is specified in an .eslintignore file', () => {
     let editor;
     beforeEach(async () => {
-      atom.config.set('linter-eslint-node.advanced.disableEslintIgnore', false);
+      atom.config.set('pulsar-eslint.advanced.disableEslintIgnore', false);
       editor = await openAndSetProjectDir(paths.ignored, projectDir);
     });
 
@@ -241,7 +241,7 @@ describe('The eslint provider for Linter', () => {
       const notificationPromise = getNotification(expectedMessage);
       await atom.commands.dispatch(
         atom.views.getView(editor),
-        'linter-eslint-node:fix-file'
+        'pulsar-eslint:fix-file'
       );
       const notification = await notificationPromise;
 
@@ -256,7 +256,7 @@ describe('The eslint provider for Linter', () => {
       );
       const tempDir = path.dirname(tempPath);
       const editor = await atom.workspace.open(tempPath);
-      atom.config.set('linter-eslint-node.advanced.disableEslintIgnore', false);
+      atom.config.set('pulsar-eslint.advanced.disableEslintIgnore', false);
       await copyFileToDir(path.join(paths.eslintignoreDir, '.eslintrc.yaml'), tempDir);
 
       const messages = await lint(editor);
@@ -270,7 +270,7 @@ describe('The eslint provider for Linter', () => {
   // why.
   xdescribe('when a file is specified in an eslintIgnore key in package.json', () => {
     it('will still lint the file if an .eslintignore file is present', async () => {
-      atom.config.set('linter-eslint-node.advanced.disableEslintIgnore', false);
+      atom.config.set('pulsar-eslint.advanced.disableEslintIgnore', false);
       let filePath = path.join(paths.eslintIgnoreKeyDir, 'ignored.js');
       const editor = await openAndSetProjectDir(filePath, projectDir);
       // const editor = await atom.workspace.open(filePath);
@@ -284,7 +284,7 @@ describe('The eslint provider for Linter', () => {
       const tempDir = path.dirname(tempPath);
 
       const editor = await atom.workspace.open(tempPath);
-      atom.config.set('linter-eslint-node.advanced.disableEslintIgnore', false);
+      atom.config.set('pulsar-eslint.advanced.disableEslintIgnore', false);
       await copyFileToDir(path.join(paths.eslintIgnoreKeyDir, 'package.json'), tempDir);
 
       const messages = await lint(editor);
@@ -298,7 +298,7 @@ describe('The eslint provider for Linter', () => {
     let tempDir;
 
     beforeEach(async () => {
-      atom.config.set('linter-eslint-node.advanced.useCache', false);
+      atom.config.set('pulsar-eslint.advanced.useCache', false);
       // Copy the file to a temporary folder
       const tempFixturePath = await copyFileToTempDir(paths.fix);
       editor = await atom.workspace.open(tempFixturePath);
@@ -330,7 +330,7 @@ describe('The eslint provider for Linter', () => {
     });
 
     it('should not fix linting errors for rules that are disabled with rulesToDisableWhileFixing', async () => {
-      atom.config.set('linter-eslint-node.autofix.rulesToDisableWhileFixing', ['semi']);
+      atom.config.set('pulsar-eslint.autofix.rulesToDisableWhileFixing', ['semi']);
 
       await firstLint(editor);
       await makeFixes(editor, 1);
@@ -385,8 +385,8 @@ describe('The eslint provider for Linter', () => {
     };
 
     it('does nothing on saved files', async () => {
-      atom.config.set('linter-eslint-node.disabling.rulesToSilenceWhileTyping', ['no-trailing-spaces']);
-      atom.config.set('linter-eslint-node.autofix.ignoreFixableRulesWhileTyping', true);
+      atom.config.set('pulsar-eslint.disabling.rulesToSilenceWhileTyping', ['no-trailing-spaces']);
+      atom.config.set('pulsar-eslint.autofix.ignoreFixableRulesWhileTyping', true);
       expectedPath = paths.modifiedIgnoreSpace;
       const editor = await atom.workspace.open(expectedPath);
       // Run once to populate the fixable rules list
@@ -412,7 +412,7 @@ describe('The eslint provider for Linter', () => {
       checkNew(messages);
 
       // Enable the option under test
-      atom.config.set('linter-eslint-node.disabling.rulesToSilenceWhileTyping', ['no-trailing-spaces']);
+      atom.config.set('pulsar-eslint.disabling.rulesToSilenceWhileTyping', ['no-trailing-spaces']);
 
       // Check the lint results
       const newMessages = await lint(editor);
@@ -436,7 +436,7 @@ describe('The eslint provider for Linter', () => {
 
       // Enable the option under test
       // NOTE: Depends on no-trailing-spaces being marked as fixable by ESLint
-      atom.config.set('linter-eslint-node.autofix.ignoreFixableRulesWhileTyping', true);
+      atom.config.set('pulsar-eslint.autofix.ignoreFixableRulesWhileTyping', true);
 
       // Check the lint results
       const newMessages = await lint(editor);
@@ -463,7 +463,7 @@ describe('The eslint provider for Linter', () => {
 
       // Enable the option under test
       // NOTE: Depends on import/newline-after-import rule being marked as fixable
-      atom.config.set('linter-eslint-node.autofix.ignoreFixableRulesWhileTyping', true);
+      atom.config.set('pulsar-eslint.autofix.ignoreFixableRulesWhileTyping', true);
 
       // Check the lint results
       const newMessages = await lint(editor);
@@ -473,14 +473,14 @@ describe('The eslint provider for Linter', () => {
 
   describe('prints debugging information with the `debug` command', () => {
     let editor;
-    const expectedMessage = 'linter-eslint-node debug information';
+    const expectedMessage = 'pulsar-eslint debug information';
     beforeEach(async () => {
       editor = await atom.workspace.open(paths.good);
     });
 
     it('shows an info notification', async () => {
       const notificationPromise = getNotification(expectedMessage);
-      await atom.commands.dispatch(atom.views.getView(editor), 'linter-eslint-node:debug');
+      await atom.commands.dispatch(atom.views.getView(editor), 'pulsar-eslint:debug');
       const notification = await notificationPromise;
 
       expect(notification.getMessage()).toBe(expectedMessage);
@@ -489,14 +489,14 @@ describe('The eslint provider for Linter', () => {
 
     it('includes debugging information in the details', async () => {
       const notificationPromise = getNotification(expectedMessage);
-      await atom.commands.dispatch(atom.views.getView(editor), 'linter-eslint-node:debug');
+      await atom.commands.dispatch(atom.views.getView(editor), 'pulsar-eslint:debug');
       const notification = await notificationPromise;
       const detail = notification.getDetail();
 
       expect(detail.includes(`Atom version: ${atom.getVersion()}`)).toBe(true);
-      expect(detail.includes('linter-eslint-node version:')).toBe(true);
+      expect(detail.includes('pulsar-eslint version:')).toBe(true);
       expect(detail.includes(`Platform: ${process.platform}`)).toBe(true);
-      expect(detail.includes('linter-eslint-node configuration:')).toBe(true);
+      expect(detail.includes('pulsar-eslint configuration:')).toBe(true);
     });
   });
 
@@ -519,7 +519,7 @@ describe('The eslint provider for Linter', () => {
     let tempFixtureDir;
 
     beforeEach(async () => {
-      atom.config.set('linter-eslint-node.disabling.disableWhenNoEslintConfig', false);
+      atom.config.set('pulsar-eslint.disabling.disableWhenNoEslintConfig', false);
 
       tempFilePath = await copyFileToTempDir(paths.badInline);
       editor = await atom.workspace.open(tempFilePath);
@@ -548,7 +548,7 @@ describe('The eslint provider for Linter', () => {
     let tempFixtureDir;
 
     beforeEach(async () => {
-      atom.config.set('linter-eslint-node.disabling.disableWhenNoEslintConfig', true);
+      atom.config.set('pulsar-eslint.disabling.disableWhenNoEslintConfig', true);
 
       const tempFilePath = await copyFileToTempDir(paths.badInline);
       editor = await atom.workspace.open(tempFilePath);
@@ -569,7 +569,7 @@ describe('The eslint provider for Linter', () => {
     const expectedUrlRegEx = /https[\S]+eslint-plugin-import[\S]+no-unresolved.md/;
 
     it('shows the rule ID when enabled', async () => {
-      atom.config.set('linter-eslint-node.advanced.showRuleIdInMessage', true);
+      atom.config.set('pulsar-eslint.advanced.showRuleIdInMessage', true);
       const editor = await atom.workspace.open(paths.badImport);
       const messages = await lint(editor);
       const expected = 'Unable to resolve path to module \'../nonexistent\'. (import/no-unresolved)';
@@ -584,7 +584,7 @@ describe('The eslint provider for Linter', () => {
     });
 
     it('doesn\'t show the rule ID when disabled', async () => {
-      atom.config.set('linter-eslint-node.advanced.showRuleIdInMessage', false);
+      atom.config.set('pulsar-eslint.advanced.showRuleIdInMessage', false);
       const editor = await atom.workspace.open(paths.badImport);
       const messages = await lint(editor);
       const expected = 'Unable to resolve path to module \'../nonexistent\'.';
@@ -604,7 +604,7 @@ describe('The eslint provider for Linter', () => {
     beforeEach(async () => {
       configEditor = await atom.workspace.open(paths.configThatChanges);
       originalConfig = configEditor.getText();
-      atom.config.set('linter-eslint-node.advanced.useCache', true);
+      atom.config.set('pulsar-eslint.advanced.useCache', true);
     });
 
     afterEach(async () => {
@@ -635,7 +635,7 @@ describe('The eslint provider for Linter', () => {
         itemSet.selector === 'atom-text-editor:not(.mini), .overlayer'
         && itemSet.items.some((item) => (
           // Matching command...
-          item.command === 'linter-eslint-node:fix-file'
+          item.command === 'pulsar-eslint:fix-file'
           // Matching label
           && item.label === 'ESLint Fix'
           // And has a function controlling display
