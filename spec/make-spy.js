@@ -15,8 +15,8 @@ export default (returnValue) => {
   };
 
   return {
-    call,
-    calledWith,
-    called: () => Boolean(calledWith.length)
+    call: call,
+    calledWith: calledWith,
+    called: () => Boolean(calledWith.length),
   };
 };

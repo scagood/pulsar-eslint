@@ -3,6 +3,9 @@
 import * as path from 'path';
 import * as fs from 'fs';
 import { tmpdir } from 'os';
+import { promisify } from 'node:util';
+
+const wait = promisify(setTimeout);
 
 /**
  * Async helper to copy a file from one place to another on the filesystem.
@@ -10,11 +13,11 @@ import { tmpdir } from 'os';
  * @param  {string} destinationDir  Directory to paste the file into
  * @return {Promise<string>}        path of the file in copy destination
  */
-export function copyFileToDir(fileToCopyPath, destinationDir, newFileName = null) {
+export function copyFileToDir(fileToCopyPath, destinationDir, targetFileName = null) {
   return new Promise((resolve, reject) => {
     const destinationPath = path.join(
       destinationDir,
-      newFileName || path.basename(fileToCopyPath)
+      targetFileName == null ? path.basename(fileToCopyPath) : targetFileName,
     );
     const rs = fs.createReadStream(fileToCopyPath);
     const ws = fs.createWriteStream(destinationPath);
@@ -32,65 +35,45 @@ export function copyFileToDir(fileToCopyPath, destinationDir, newFileName = null
  * @param  {string} fileToCopyPath  Path of the file to be copied
  * @return {Promise<string>}        path of the file in copy destination
  */
-// eslint-disable-next-line import/prefer-default-export
-export async function copyFileToTempDir(fileToCopyPath, newFileName = null) {
+export async function copyFileToTempDir(fileToCopyPath, targetFileName = null) {
   const tempFixtureDir = fs.mkdtempSync(tmpdir() + path.sep);
-  return copyFileToDir(fileToCopyPath, tempFixtureDir, newFileName);
+  return copyFileToDir(fileToCopyPath, tempFixtureDir, targetFileName);
 }
 
-export async function openAndSetProjectDir (fileName, projectDir) {
-  let editor = await atom.workspace.open(fileName);
-  atom.project.setPaths([projectDir]);
-  await race(
+export async function openAndSetProjectDir(fileName, projectDir) {
+  const editor = await atom.workspace.open(fileName);
+  atom.project.setPaths([ projectDir ]);
+  await Promise.race([
     atom.project.getWatcherPromise(projectDir),
-    wait(1000)
-  );
+    wait(1000),
+  ]);
   return editor;
 }
 
-export function getNotification (expectedMessage = null) {
-  let promise = new Promise((resolve, reject) => {
-    let notificationSub;
-    let newNotification = notification => {
-      if (expectedMessage && notification.getMessage()) {
-        return;
-      }
-      if (notificationSub !== undefined) {
-        notificationSub.dispose();
-        resolve(notification);
-      } else {
-        reject();
-      }
-    };
-    notificationSub = atom.notifications.onDidAddNotification(newNotification);
-  });
-  return race(promise, wait(3000));
-}
+/**
+ * @param {string} expectedMessage
+ * @returns {Promise<import("atom").Notification>}
+ */
+export function getNotification(expectedMessage = null) {
+  const promise = new Promise((resolve, reject) => {
+    const notificationSub = atom.notifications.onDidAddNotification(
+      (notification) => {
+        if (expectedMessage == null) {
+          return resolve(notification);
+        }
 
-// Grab this before it gets wrapped.
-const _setTimeout = window.setTimeout;
-export function wait (ms) {
-  return new Promise((resolve) => {
-    _setTimeout(resolve, ms);
-  });
-}
+        if (notification.getMessage() !== expectedMessage) {
+          return;
+        }
 
-export function setTimeout (...args) {
-  return _setTimeout(...args);
-}
-
-export function race (...promises) {
-  let count = promises.length;
-  let rejectedCount = 0;
-  return new Promise((resolve, reject) => {
-    for (let promise of promises) {
-      // Resolve whenever the first one resolves.
-      promise.then(resolve);
-      // Reject if they all reject.
-      promise.catch(() => {
-        rejectedCount++;
-        if (rejectedCount === count) { reject(); }
-      });
-    }
+        if (notificationSub == null) {
+          reject(new Error('Notification not found'));
+        } else {
+          notificationSub.dispose();
+          resolve(notification);
+        }
+      },
+    );
   });
+  return Promise.race([ promise, wait(3000) ]);
 }

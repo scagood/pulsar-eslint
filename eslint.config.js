@@ -13,6 +13,42 @@ module.exports = (async () => {
   const configs = (await createConfig(__dirname))
     .map((config) => ({ ...config }));
 
+  const [ { ignores } ] = configs;
+  ignores.push('spec/fixtures', 'package-lock.json');
+
+  configs.push({
+    files: [ 'spec/**' ],
+    languageOptions: {
+      globals: {
+        describe: true,
+        it: true,
+
+        fdescribe: true,
+        fit: true,
+        xdescribe: true,
+        xit: true,
+
+        expect: true,
+        pass: true,
+        fail: true,
+
+        beforeAll: true,
+        beforeEach: true,
+        afterEach: true,
+        afterAll: true,
+      },
+    },
+    rules: {
+      'max-lines-per-function': 0,
+      'max-nested-callbacks': 0,
+      'jsdoc/check-tag-names': 0,
+      'jsdoc/require-jsdoc': 0,
+      'jsdoc/require-param': 0,
+      'jsdoc/require-returns': 0,
+      'n/no-sync': 0,
+    },
+  });
+
   for (const config of configs.filter(ByRule('no-undef'))) {
     if (config.languageOptions == null) {
       config.languageOptions = {};
