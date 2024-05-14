@@ -112,15 +112,6 @@
             "string",
             "null"
           ]
-        },
-        "voltaHome": {
-          "order": 3,
-          "title": "The Volta Home directory",
-          "description": "This value will overwrite your $VOLTA_HOME environment variable",
-          "type": [
-            "string",
-            "null"
-          ]
         }
       }
     },
