@@ -37,7 +37,7 @@
     "@types/eslint-8": "npm:@types/eslint@8.56.10",
     "@types/eslint-9": "npm:@types/eslint@8.56.10",
     "@types/throttle-debounce": "5.0.2",
-    "@types/which": "3.0.3",
+    "@types/which": "3.0.4",
     "atom-jasmine3-test-runner": "5.2.13",
     "eslint-plugin-import": "^2.29.1",
     "rimraf": "3.0.2"
