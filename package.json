@@ -27,7 +27,7 @@
     "lodash.get": "4.4.2",
     "moize": "6.1.6",
     "patch-package": "8.0.0",
-    "throttle-debounce": "5.0.0",
+    "throttle-debounce": "5.0.2",
     "which": "4.0.0"
   },
   "devDependencies": {
