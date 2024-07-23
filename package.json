@@ -31,7 +31,7 @@
     "which": "4.0.0"
   },
   "devDependencies": {
-    "@darksheep/eslint": "5.0.0",
+    "@darksheep/eslint": "5.1.0",
     "@types/eslint": "8.56.11",
     "@types/eslint-7": "npm:@types/eslint@7.29.0",
     "@types/eslint-8": "npm:@types/eslint@8.56.11",
@@ -44,10 +44,10 @@
   },
   "engines": {
     "atom": ">=1.0.0 <2.0.0",
-    "node": "^20.12.1"
+    "node": "^20.12.1 || ^22.5.1"
   },
   "volta": {
-    "node": "20.15.1",
+    "node": "22.5.1",
     "npm": "10.8.2"
   },
   "atomTestRunner": "./spec/runner",
@@ -230,5 +230,11 @@
         }
       }
     }
+  },
+  "overrides": {
+    "@typescript-eslint/eslint-plugin": "^8.0.0-0",
+    "@typescript-eslint/parser": "^8.0.0-0",
+    "@typescript-eslint/type-utils": "^8.0.0-0",
+    "@typescript-eslint/utils": "^8.0.0-0"
   }
 }
