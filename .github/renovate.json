@@ -1,6 +1,8 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "ignorePaths": ["**/fixtures/**"],
+  "ignorePaths": [
+    "**/fixtures/**"
+  ],
   "extends": [
     ":disableRateLimiting",
     ":enableVulnerabilityAlerts",
@@ -21,23 +23,36 @@
     "semanticCommitScope": "lock"
   },
   "prBodyTemplate": "{{{table}}}{{{warnings}}}{{{notes}}}{{{changelogs}}}{{{controls}}}{{{footer}}}",
-  "prBodyColumns": [ "Package", "Update", "Type", "Change" ],
+  "prBodyColumns": [
+    "Package",
+    "Update",
+    "Type",
+    "Change"
+  ],
   "packageRules": [
     {
-      "matchPackagePatterns": [ "*" ],
       "semanticCommits": "enabled",
-      "semanticCommitType": "deps"
+      "semanticCommitType": "deps",
+      "matchPackageNames": [
+        "*"
+      ]
     },
     {
-      "matchDepTypes": [ "dependencies" ],
+      "matchDepTypes": [
+        "dependencies"
+      ],
       "semanticCommitScope": "pkg"
     },
     {
-      "matchDepTypes": [ "devDependencies" ],
+      "matchDepTypes": [
+        "devDependencies"
+      ],
       "semanticCommitScope": "dev"
     },
     {
-      "matchDepTypes": [ "peerDependencies" ],
+      "matchDepTypes": [
+        "peerDependencies"
+      ],
       "semanticCommitScope": "peer"
     }
   ]
