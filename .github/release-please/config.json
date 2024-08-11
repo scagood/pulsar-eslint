@@ -1,0 +1,28 @@
+{
+  "release-type": "node",
+  "commit-search-depth": 100,
+  "release-search-depth": 100,
+  "separate-pull-requests": true,
+  "include-component-in-tag": false,
+  "changelog-sections": [
+    { "type": "feat", "section": "🌟 Features", "hidden": false },
+    { "type": "fix", "section": "🩹 Fixes", "hidden": false },
+    { "type": "docs", "section": "📚 Documentation", "hidden": false },
+    { "type": "perf", "section": "⚡ Performance" },
+
+    { "type": "deps", "scope": "dev", "hidden": true },
+    { "type": "deps", "scope": "deps", "hidden": true },
+    { "type": "deps", "scope": "lock", "hidden": true },
+    { "type": "deps", "scope": "pkg", "section": "📦 Dependencies", "hidden": false },
+
+    { "type": "refactor", "section": "🔨 Code Refactoring" },
+    { "type": "test", "section": "🧪 Tests" },
+    { "type": "style", "section": "🧹 Chores", "hidden": true },
+    { "type": "chore", "section": "🧹 Chores", "hidden": false },
+
+    { "type": "revert", "section": "⏪ Reverts" },
+    { "type": "build", "section": "🤖 Automation", "hidden": true },
+    { "type": "ci", "section": "🤖 Automation", "hidden": true }
+  ],
+  "packages": { ".": {} }
+}

@@ -1,59 +1,6 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "ignorePaths": [
-    "**/fixtures/**"
-  ],
   "extends": [
-    ":disableRateLimiting",
-    ":enableVulnerabilityAlerts",
-    ":ignoreModulesAndTests",
-    ":ignoreUnstable",
-    ":separateMultipleMajorReleases",
-    ":pinDependencies",
-    "group:monorepos",
-    "group:recommended",
-    "replacements:all",
-    "workarounds:all"
-  ],
-  "configMigration": true,
-  "rangeStrategy": "update-lockfile",
-  "lockFileMaintenance": {
-    "enabled": true,
-    "semanticCommitType": "deps",
-    "semanticCommitScope": "lock"
-  },
-  "prBodyTemplate": "{{{table}}}{{{warnings}}}{{{notes}}}{{{changelogs}}}{{{controls}}}{{{footer}}}",
-  "prBodyColumns": [
-    "Package",
-    "Update",
-    "Type",
-    "Change"
-  ],
-  "packageRules": [
-    {
-      "semanticCommits": "enabled",
-      "semanticCommitType": "deps",
-      "matchPackageNames": [
-        "*"
-      ]
-    },
-    {
-      "matchDepTypes": [
-        "dependencies"
-      ],
-      "semanticCommitScope": "pkg"
-    },
-    {
-      "matchDepTypes": [
-        "devDependencies"
-      ],
-      "semanticCommitScope": "dev"
-    },
-    {
-      "matchDepTypes": [
-        "peerDependencies"
-      ],
-      "semanticCommitScope": "peer"
-    }
+    "local>DarkSheepSoftware/.github:renovate-config"
   ]
 }
