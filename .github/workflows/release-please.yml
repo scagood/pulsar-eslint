@@ -7,14 +7,12 @@ on:
 permissions:
   contents: write
   pull-requests: write
+  id-token: write
 
 name: release-please
 jobs:
   release-please:
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      id-token: write
     steps:
       - uses: googleapis/release-please-action@v4
         with:
