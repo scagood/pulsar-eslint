@@ -46,6 +46,7 @@ module.exports = (async () => {
       'jsdoc/require-param': 0,
       'jsdoc/require-returns': 0,
       'n/no-sync': 0,
+      'n/no-process-env': 0,
     },
   });
 
