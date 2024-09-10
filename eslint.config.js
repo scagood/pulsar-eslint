@@ -74,8 +74,8 @@ module.exports = (async () => {
     config.settings.node.version = '14.21.3';
   }
 
-  for (const config of configs.filter(ByPlugin('unicorn'))) {
-    config.rules['unicorn/prefer-node-protocol'] = 'off';
+  for (const config of configs.filter(ByPlugin('n'))) {
+    config.rules['n/prefer-node-protocol'] = 'off';
   }
 
   for (const config of configs.filter(ByPlugin('jsdoc'))) {
