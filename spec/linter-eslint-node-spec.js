@@ -427,8 +427,7 @@ describe('The eslint provider for Linter', () => {
       const messages = await lint(editor);
       expect(messages.length).toBe(1);
       expect(messages[0].severity).toBe('error');
-      expect(messages[0].excerpt).toBe('Expected 1 empty line after import ' +
-      'statement not followed by another import. (import/newline-after-import)');
+      expect(messages[0].excerpt).toBe('Expected 1 empty line after import statement not followed by another import. (import/newline-after-import)');
 
       // Enable the option under test
       // NOTE: Depends on import/newline-after-import rule being marked as fixable
