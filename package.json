@@ -31,7 +31,7 @@
     "which": "4.0.0"
   },
   "devDependencies": {
-    "@darksheep/eslint": "6.4.0",
+    "@darksheep/eslint": "6.4.1",
     "@types/eslint": "9.6.1",
     "@types/eslint-7": "npm:@types/eslint@7.29.0",
     "@types/eslint-8": "npm:@types/eslint@8.56.12",
