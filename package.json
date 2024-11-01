@@ -46,7 +46,7 @@
     "node": "^20.12.1 || ^22.5.1"
   },
   "volta": {
-    "node": "22.9.0",
+    "node": "22.11.0",
     "npm": "10.9.0"
   },
   "atomTestRunner": "./spec/runner",
