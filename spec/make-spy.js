@@ -1,8 +1,10 @@
 'use babel';
 
-export default (returnValue) => {
-  // This will be a 2d array: list of param lists
-  // for each time it was called.
+export default function makeSpy(returnValue) {
+  /*
+   * This will be a 2d array: list of param lists
+   * for each time it was called.
+   */
   const calledWith = [];
 
   const call = (...passedArgs) => {
@@ -17,6 +19,6 @@ export default (returnValue) => {
   return {
     call: call,
     calledWith: calledWith,
-    called: () => Boolean(calledWith.length),
+    called: () => calledWith.length > 0,
   };
-};
+}

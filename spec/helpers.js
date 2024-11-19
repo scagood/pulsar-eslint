@@ -9,9 +9,9 @@ const wait = promisify(setTimeout);
 
 /**
  * Async helper to copy a file from one place to another on the filesystem.
- * @param  {string} fileToCopyPath  Path of the file to be copied
- * @param  {string} destinationDir  Directory to paste the file into
- * @return {Promise<string>}        path of the file in copy destination
+ * @param {string} fileToCopyPath - Path of the file to be copied.
+ * @param {string} destinationDir - Directory to paste the file into.
+ * @return {Promise<string>} Path of the file in copy destination.
  */
 export function copyFileToDir(fileToCopyPath, destinationDir, targetFileName = null) {
   return new Promise((resolve, reject) => {
@@ -32,8 +32,8 @@ export function copyFileToDir(fileToCopyPath, destinationDir, targetFileName = n
 /**
  * Utility helper to copy a file into the OS temp directory.
  *
- * @param  {string} fileToCopyPath  Path of the file to be copied
- * @return {Promise<string>}        path of the file in copy destination
+ * @param {string} fileToCopyPath - Path of the file to be copied.
+ * @return {Promise<string>} Path of the file in copy destination.
  */
 export async function copyFileToTempDir(fileToCopyPath, targetFileName = null) {
   const tempFixtureDir = fs.mkdtempSync(tmpdir() + path.sep);
