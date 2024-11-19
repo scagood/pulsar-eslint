@@ -62,8 +62,10 @@ async function makeFixes(textEditor, expectedFixCount) {
   // Subscribe to notification events
   const notificationPromise = getNotification(expectedMessage);
 
-  // Subscriptions now active for Editor Reload and Message Notification
-  // Send off a fix request.
+  /*
+   * Subscriptions now active for Editor Reload and Message Notification
+   * Send off a fix request.
+   */
   await atom.commands.dispatch(atom.views.getView(textEditor), 'pulsar-eslint:fix-file');
 
   const notification = await notificationPromise;
@@ -196,12 +198,14 @@ describe('The eslint provider for Linter', () => {
     });
 
     it('will not give warnings when linting the file', async () => {
-      // By default (for reasons I haven't figured out yet) the `spec/fixtures`
-      // folder is the sole project path. Our what’s-our-cwd traversal logic
-      // will search upward and use the first directory with an
-      // `.eslintignore`… until it hits the project root. If we don't set the
-      // project root here, our `.eslintignore` will itself, poignantly, be
-      // ignored.
+      /*
+       * By default (for reasons I haven't figured out yet) the `spec/fixtures`
+       * folder is the sole project path. Our what’s-our-cwd traversal logic
+       * will search upward and use the first directory with an
+       * `.eslintignore`… until it hits the project root. If we don't set the
+       * project root here, our `.eslintignore` will itself, poignantly, be
+       * ignored.
+       */
       const messages = await lint(editor);
 
       expect(messages.length).toBe(0);
@@ -236,9 +240,11 @@ describe('The eslint provider for Linter', () => {
     });
   });
 
-  // These tests fail when the worker runs `lintText`, but pass when it runs
-  // `lintFiles`. This makes no sense. They're skipped until I can figure out
-  // why.
+  /*
+   * These tests fail when the worker runs `lintText`, but pass when it runs
+   * `lintFiles`. This makes no sense. They're skipped until I can figure out
+   * why.
+   */
   xdescribe('when a file is specified in an eslintIgnore key in package.json', () => {
     it('will still lint the file if an .eslintignore file is present', async () => {
       atom.config.set('pulsar-eslint.advanced.disableEslintIgnore', false);
@@ -264,6 +270,16 @@ describe('The eslint provider for Linter', () => {
     });
   });
 
+  /**
+   * @param {import("atom").TextEditor} textEditor
+   * @returns {Promise<void>}
+   */
+  async function firstLint(textEditor) {
+    const messages = await lint(textEditor);
+    // The original file has two errors
+    expect(messages.length).toBe(2);
+  }
+
   describe('fixes errors', () => {
     let editor;
     let tempDir;
@@ -282,16 +298,6 @@ describe('The eslint provider for Linter', () => {
       // Remove the temporary directory
       rimraf.sync(tempDir);
     });
-
-    /**
-     * @param {import("atom").TextEditor} textEditor
-     * @returns {Promise<void>}
-     */
-    async function firstLint(textEditor) {
-      const messages = await lint(textEditor);
-      // The original file has two errors
-      expect(messages.length).toBe(2);
-    }
 
     it('should fix linting errors', async () => {
       await firstLint(editor);
@@ -404,8 +410,10 @@ describe('The eslint provider for Linter', () => {
       const messages = await lint(editor);
       checkNew(messages);
 
-      // Enable the option under test
-      // NOTE: Depends on no-trailing-spaces being marked as fixable by ESLint
+      /*
+       * Enable the option under test
+       * NOTE: Depends on no-trailing-spaces being marked as fixable by ESLint
+       */
       atom.config.set('pulsar-eslint.autofix.ignoreFixableRulesWhileTyping', true);
 
       // Check the lint results
@@ -429,8 +437,10 @@ describe('The eslint provider for Linter', () => {
       expect(messages[0].severity).toBe('error');
       expect(messages[0].excerpt).toBe('Expected 1 empty line after import statement not followed by another import. (import/newline-after-import)');
 
-      // Enable the option under test
-      // NOTE: Depends on import/newline-after-import rule being marked as fixable
+      /*
+       * Enable the option under test
+       * NOTE: Depends on import/newline-after-import rule being marked as fixable
+       */
       atom.config.set('pulsar-eslint.autofix.ignoreFixableRulesWhileTyping', true);
 
       // Check the lint results
@@ -596,8 +606,10 @@ describe('The eslint provider for Linter', () => {
   });
 
   it('registers an \'ESLint Fix\' right click menu command', () => {
-    // NOTE: Reaches into the private data of the ContextMenuManager, there is
-    // no public method to check this though so...
+    /*
+     * NOTE: Reaches into the private data of the ContextMenuManager, there is
+     * no public method to check this though so...
+     */
     expect(
       atom.contextMenu.itemSets.some((itemSet) => (
         // Matching selector...

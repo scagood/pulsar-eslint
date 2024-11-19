@@ -86,5 +86,15 @@ module.exports = (async () => {
     config.rules['sonarjs/no-duplicate-string'] = 'off';
   }
 
+  // not available in node 14
+  for (const config of configs.filter(ByPlugin('regexp'))) {
+    config.rules['regexp/prefer-named-capture-group'] = 'off';
+    config.rules['regexp/require-unicode-regexp'] = 'off';
+  }
+  for (const config of configs.filter(ByPlugin('unicorn'))) {
+    config.rules['unicorn/prefer-at'] = 'off';
+    config.rules['unicorn/prefer-string-replace-all'] = 'off';
+  }
+
   return configs;
 })();
