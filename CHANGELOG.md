@@ -1,5 +1,25 @@
 # Changelog
 
+## [1.1.0](https://github.com/scagood/pulsar-eslint/compare/v1.0.1...v1.1.0) (2025-02-04)
+
+
+### 🌟 Features
+
+* handle .mjs and .cjs in v9 configs ([#120](https://github.com/scagood/pulsar-eslint/issues/120)) ([28a319f](https://github.com/scagood/pulsar-eslint/commit/28a319fa71b416144eef82d291164f1d1e82c8b8))
+
+
+### 📦 Dependencies
+
+* **pkg:** update dependency eslint to v9.16.0 ([#110](https://github.com/scagood/pulsar-eslint/issues/110)) ([dcef244](https://github.com/scagood/pulsar-eslint/commit/dcef24459be45c543796958500e19cf27ed184d0))
+* **pkg:** update dependency eslint to v9.17.0 ([#116](https://github.com/scagood/pulsar-eslint/issues/116)) ([fca36c0](https://github.com/scagood/pulsar-eslint/commit/fca36c01e473bc6572be94a2fb3359faae8ec169))
+* **pkg:** update dependency eslint to v9.18.0 ([#123](https://github.com/scagood/pulsar-eslint/issues/123)) ([f8dde1e](https://github.com/scagood/pulsar-eslint/commit/f8dde1e3342c078d86608c2a1bf17efd50ba4c44))
+* **pkg:** update dependency eslint to v9.19.0 ([#128](https://github.com/scagood/pulsar-eslint/issues/128)) ([ed14080](https://github.com/scagood/pulsar-eslint/commit/ed1408038bd6b70544c2f7b5ef24a2c0e89041ab))
+
+
+### 🧹 Chores
+
+* Wrap clean messages in try catch ([df13019](https://github.com/scagood/pulsar-eslint/commit/df13019d3208a495e41767300a7ddc4df8800db9))
+
 ## [1.0.1](https://github.com/scagood/pulsar-eslint/compare/v1.0.0...v1.0.1) (2024-11-28)
 
 
