@@ -50,7 +50,7 @@
   },
   "volta": {
     "node": "22.13.1",
-    "npm": "11.1.0"
+    "npm": "11.6.0"
   },
   "atomTestRunner": "./spec/runner",
   "package-deps": [
