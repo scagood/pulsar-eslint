@@ -31,7 +31,7 @@
     "moize": "6.1.6",
     "patch-package": "8.0.0",
     "throttle-debounce": "5.0.2",
-    "which": "4.0.0"
+    "which": "6.0.1"
   },
   "devDependencies": {
     "@darksheep/eslint": "6.7.8",
