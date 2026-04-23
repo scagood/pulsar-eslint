@@ -46,10 +46,10 @@
   },
   "engines": {
     "atom": ">=1.0.0 <2.0.0",
-    "node": "^20.12.1 || ^22.5.1"
+    "node": "^24.0.0"
   },
   "volta": {
-    "node": "22.19.0",
+    "node": "24.15.0",
     "npm": "11.13.0"
   },
   "atomTestRunner": "./spec/runner",
