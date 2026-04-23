@@ -1,6 +1,6 @@
 {
   "name": "pulsar-eslint",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Lint JavaScript on the fly, using ESLint (v8 or greater)",
   "keywords": [
     "linter",
