@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.1.2](https://github.com/scagood/pulsar-eslint/compare/v1.1.1...v1.1.2) (2026-06-17)
+
+
+### 📦 Dependencies
+
+* **pkg:** pin dependencies ([7eb7137](https://github.com/scagood/pulsar-eslint/commit/7eb713792699f170858529580693c05e7a7a039c))
+* **pkg:** update eslint monorepo to v10.5.0 ([5dd5325](https://github.com/scagood/pulsar-eslint/commit/5dd53253f835be326dcccc85299c21ee936084aa))
+
 ## [1.1.1](https://github.com/scagood/pulsar-eslint/compare/v1.1.0...v1.1.1) (2026-06-17)
 
 
