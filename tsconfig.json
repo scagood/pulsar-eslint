@@ -1,0 +1,10 @@
+{
+  "extends": "@tsconfig/node20/tsconfig.json",
+  "compilerOptions": {
+    "allowJs": true,
+    "checkJs": false,
+    "noEmit": true
+  },
+  "include": [ "lib/**/*.js", "spec/**/*.js", "eslint.config.js" ],
+  "exclude": [ "node_modules", "spec/fixtures" ]
+}
