@@ -16,7 +16,7 @@ if (process.env.PATH === '/usr/bin:/bin:/usr/sbin:/sbin') {
   ).toString()
     .trim()
     .split('\n');
-  process.env.PATH = shellOutput[shellOutput.length - 1];
+  process.env.PATH = shellOutput.at(-1);
 }
 
 function setDefaultSettings(namespace, settings) {

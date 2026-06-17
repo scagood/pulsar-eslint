@@ -74,7 +74,7 @@ async function makeFixes(textEditor, expectedFixCount) {
 
   // After editor reloads, it should be safe for consuming test to resume.
   buffer.reload();
-  return editorReloadPromise;
+  await editorReloadPromise;
 }
 
 describe('The eslint provider for Linter', () => {
