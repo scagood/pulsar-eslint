@@ -1,5 +1,9 @@
 'use babel';
 
+/**
+ * @import { Notification } from 'atom';
+ */
+
 import * as path from 'path';
 import * as fs from 'fs';
 import { tmpdir } from 'os';
@@ -17,13 +21,17 @@ export function copyFileToDir(fileToCopyPath, destinationDir, targetFileName = n
   return new Promise((resolve, reject) => {
     const destinationPath = path.join(
       destinationDir,
-      targetFileName == null ? path.basename(fileToCopyPath) : targetFileName,
+      targetFileName ?? path.basename(fileToCopyPath),
     );
     const rs = fs.createReadStream(fileToCopyPath);
     const ws = fs.createWriteStream(destinationPath);
 
-    ws.on('close', () => resolve(destinationPath));
-    ws.on('error', (error) => reject(error));
+    ws.on('close', () => {
+      resolve(destinationPath);
+    });
+    ws.on('error', (error) => {
+      reject(error);
+    });
 
     rs.pipe(ws);
   });
@@ -37,7 +45,7 @@ export function copyFileToDir(fileToCopyPath, destinationDir, targetFileName = n
  */
 export async function copyFileToTempDir(fileToCopyPath, targetFileName = null) {
   const tempFixtureDir = fs.mkdtempSync(tmpdir() + path.sep);
-  return copyFileToDir(fileToCopyPath, tempFixtureDir, targetFileName);
+  return await copyFileToDir(fileToCopyPath, tempFixtureDir, targetFileName);
 }
 
 export async function openAndSetProjectDir(fileName, projectDir) {
@@ -52,14 +60,15 @@ export async function openAndSetProjectDir(fileName, projectDir) {
 
 /**
  * @param {string} expectedMessage
- * @returns {Promise<import("atom").Notification>}
+ * @returns {Promise<Notification>}
  */
 export function getNotification(expectedMessage = null) {
   const promise = new Promise((resolve, reject) => {
     const notificationSub = atom.notifications.onDidAddNotification(
       (notification) => {
         if (expectedMessage == null) {
-          return resolve(notification);
+          resolve(notification);
+          return;
         }
 
         if (notification.getMessage() !== expectedMessage) {

@@ -48,8 +48,8 @@ async function deleteFilesFromProject(projectPath) {
 }
 
 function expectVersionMatch(expected, actual) {
-  expected = expected.replace(/\s/g, '');
-  actual = actual.replace(/\s/g, '');
+  expected = expected.replaceAll(/\s/g, '');
+  actual = actual.replaceAll(/\s/g, '');
   expect(expected).toBe(actual);
 }
 
