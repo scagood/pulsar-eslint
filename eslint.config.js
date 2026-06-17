@@ -1,3 +1,8 @@
+/**
+ * @import { Linter } from 'eslint';
+ * @param {string} name
+ * @returns {(config: Linter.Config) => boolean}
+ */
 function ByPlugin(name) {
   return (config) => config?.plugins?.[name] != null;
 }
@@ -9,7 +14,7 @@ function ByRule(name) {
 module.exports = (async () => {
   const { createConfig } = await import('@darksheep/eslint');
 
-  /** @type {import('eslint').Linter.FlatConfig[]} */
+  /** @type {Linter.FlatConfig[]} */
   const configs = (await createConfig(__dirname))
     .map((config) => ({ ...config }));
 
@@ -51,27 +56,16 @@ module.exports = (async () => {
   });
 
   for (const config of configs.filter(ByRule('no-undef'))) {
-    if (config.languageOptions == null) {
-      config.languageOptions = {};
-    }
-
-    if (config.languageOptions.globals == null) {
-      config.languageOptions.globals = {};
-    }
-
+    config.languageOptions ??= {};
+    config.languageOptions.globals ??= {};
     config.languageOptions.globals.atom = 'readonly';
     config.languageOptions.globals.window = 'readonly';
   }
 
-  // env = { browser: true }
   for (const config of configs.filter(ByPlugin('n'))) {
-    if (config.settings == null) {
-      config.settings = {};
-    }
-    if (config.settings.node == null) {
-      config.settings.node = {};
-    }
-    config.settings.node.version = '14.21.3';
+    config.settings ??= {};
+    config.settings.node ??= {};
+    config.settings.node.version = '20.16.0';
   }
 
   for (const config of configs.filter(ByPlugin('n'))) {
@@ -86,15 +80,17 @@ module.exports = (async () => {
     config.rules['sonarjs/no-duplicate-string'] = 'off';
   }
 
-  // not available in node 14
   for (const config of configs.filter(ByPlugin('regexp'))) {
     config.rules['regexp/prefer-named-capture-group'] = 'off';
     config.rules['regexp/require-unicode-regexp'] = 'off';
   }
-  for (const config of configs.filter(ByPlugin('unicorn'))) {
-    config.rules['unicorn/prefer-at'] = 'off';
-    config.rules['unicorn/prefer-string-replace-all'] = 'off';
-  }
+
+  configs.push({
+    files: [ 'package.json' ],
+    rules: {
+      'package-json/no-empty-fields': 'off',
+    },
+  });
 
   return configs;
 })();
