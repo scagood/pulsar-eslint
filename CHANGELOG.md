@@ -1,5 +1,30 @@
 # Changelog
 
+## [1.1.1](https://github.com/scagood/pulsar-eslint/compare/v1.1.0...v1.1.1) (2026-06-17)
+
+
+### 🩹 Fixes
+
+* Add support for additional ESLint config file types ([e4476b2](https://github.com/scagood/pulsar-eslint/commit/e4476b2c57e0ff864e5a3cbf94653f0706df9e39))
+* address typed lint errors surfaced by @darksheep/eslint v10 ([c3eb3d9](https://github.com/scagood/pulsar-eslint/commit/c3eb3d923e2883c30dc9b065ca1b9f89e96b37b3))
+* Allow using eslint v9 handler to run eslint &gt;= 10 ([7e2b599](https://github.com/scagood/pulsar-eslint/commit/7e2b5990ab7b026a901fbfaa028e42404c48eb12))
+* config resolution for eslint &gt; 9 ([#159](https://github.com/scagood/pulsar-eslint/issues/159)) ([b2c4c66](https://github.com/scagood/pulsar-eslint/commit/b2c4c66c0b48de39777cfcfbe160bde5d94a42c7))
+
+
+### 📦 Dependencies
+
+* **pkg:** update dependency eslint to v9.34.0 ([#131](https://github.com/scagood/pulsar-eslint/issues/131)) ([fcdb36d](https://github.com/scagood/pulsar-eslint/commit/fcdb36d4544006e9bd123e621f9779a995c63669))
+* **pkg:** update dependency moize to v6.1.7 ([#153](https://github.com/scagood/pulsar-eslint/issues/153)) ([dbdd0e4](https://github.com/scagood/pulsar-eslint/commit/dbdd0e4f27a43578d2154344ff2f1e5b1fe4d0b5))
+* **pkg:** update dependency patch-package to v8.0.1 ([#147](https://github.com/scagood/pulsar-eslint/issues/147)) ([efdacfa](https://github.com/scagood/pulsar-eslint/commit/efdacfab1d86c8b9d285c120c8bea5c1c0af4f7f))
+* **pkg:** update dependency which to v7 ([#158](https://github.com/scagood/pulsar-eslint/issues/158)) ([6d0f779](https://github.com/scagood/pulsar-eslint/commit/6d0f779de0541217a5f73936f9c7f4f1d24a47f1))
+* **pkg:** update eslint monorepo to v9.39.4 ([#143](https://github.com/scagood/pulsar-eslint/issues/143)) ([e4384e0](https://github.com/scagood/pulsar-eslint/commit/e4384e0e3ea3ea7d1cea1bf81e031ec4bb6d0538))
+
+
+### 🧹 Chores
+
+* add tsconfig.json for [@typescript-eslint](https://github.com/typescript-eslint) project service ([9ffbdf6](https://github.com/scagood/pulsar-eslint/commit/9ffbdf60178a3596c7bd91aca288608e760a0173))
+* update eslint.config.js for @darksheep/eslint v10 ([70c57dd](https://github.com/scagood/pulsar-eslint/commit/70c57dddb0b8df148f60ee26c9bdec2422df74e6))
+
 ## [1.1.0](https://github.com/scagood/pulsar-eslint/compare/v1.0.1...v1.1.0) (2025-02-04)
 
 
