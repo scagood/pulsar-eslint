@@ -36,7 +36,7 @@
   },
   "devDependencies": {
     "@darksheep/eslint": "10.1.2",
-    "@tsconfig/node20": "^20.1.9",
+    "@tsconfig/node22": "^22.0.0",
     "@types/eslint": "9.6.1",
     "@types/eslint-7": "npm:@types/eslint@7.29.0",
     "@types/eslint-8": "npm:@types/eslint@8.56.12",
