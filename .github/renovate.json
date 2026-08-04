@@ -1,7 +1,8 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "local>DarkSheepSoftware/.github:renovate-config"
+    "local>scagood/renovate:base",
+    "local>scagood/renovate:automerge"
   ],
   "ignorePaths": [ "spec/" ]
 }
