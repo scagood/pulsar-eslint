@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.3](https://github.com/scagood/pulsar-eslint/compare/v1.1.2...v1.1.3) (2026-08-06)
+
+
+### 📦 Dependencies
+
+* **pkg:** update dependency eslint to v10.8.0 ([#170](https://github.com/scagood/pulsar-eslint/issues/170)) ([f7b73be](https://github.com/scagood/pulsar-eslint/commit/f7b73be1d95680f025ca02cbd9035fb9aa3a9478))
+
 ## [1.1.2](https://github.com/scagood/pulsar-eslint/compare/v1.1.1...v1.1.2) (2026-06-17)
 
 
