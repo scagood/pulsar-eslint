@@ -52,7 +52,7 @@
   },
   "volta": {
     "node": "24.22.3",
-    "npm": "12.2.2"
+    "npm": "12.2.3"
   },
   "activationHooks": [
     "core:loaded-shell-environment"
